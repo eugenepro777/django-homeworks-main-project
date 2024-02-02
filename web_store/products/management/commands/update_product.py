@@ -10,7 +10,7 @@ class Command(BaseCommand):
         parser.add_argument('pk', type=int, help='Product ID')
         parser.add_argument('name', type=str, help='Product ID')
         parser.add_argument('description', type=str, help='Product ID')
-        parser.add_argument('price', type=Decimal().quantize(Decimal('.01')), help='Product price')
+        parser.add_argument('price', type=Decimal, help='Product price')
         parser.add_argument('quantity', type=int, help='Product quantity')
 
     def handle(self, *args, **kwargs):
