@@ -13,7 +13,6 @@ class Command(BaseCommand):
         parser.add_argument('order_id', type=int, help='ID of the order to update')
         parser.add_argument('customer_id', type=int, help='ID of the new customer')
         parser.add_argument('product_ids', type=int, nargs='+', help='IDs of the products to add to the order')
-        # parser.add_argument('quantities', type=int, nargs='+', help='Quantities corresponding to the products')
 
     def handle(self, *args, **kwargs):
         # обнуляем сумму заказа
