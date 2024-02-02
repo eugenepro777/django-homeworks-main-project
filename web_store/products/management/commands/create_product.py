@@ -17,7 +17,7 @@ class Command(BaseCommand):
         added_date = timezone.now().date()
         product = Product(
             name=name,
-            desxription=description,
+            description=description,
             price=price,
             quantity=quantity,
             added_date=added_date,
