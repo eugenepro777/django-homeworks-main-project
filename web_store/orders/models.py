@@ -10,4 +10,4 @@ class Order(models.Model):
     order_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f'Order: {self.id} - {self.customer.name} '
+        return f'Order: {self.id} - {self.customer.name}'
