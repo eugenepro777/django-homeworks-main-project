@@ -5,6 +5,10 @@ from orders.models import Order
 
 fake = Faker()
 
+"""
+Исключительно для генерации тестовых данных
+"""
+
 
 def create_fake_customers(num_customers):
     for _ in range(num_customers):
