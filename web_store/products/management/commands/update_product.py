@@ -3,6 +3,8 @@ from django.core.management.base import BaseCommand
 from products.models import Product
 
 
+# python manage.py update_product <product_id> <name> <description> <price> <quantity> <added_date YYYY-MM-DD>
+
 class Command(BaseCommand):
     help = "Update a product info by id. Price in Decimal"
 
@@ -12,6 +14,7 @@ class Command(BaseCommand):
         parser.add_argument('description', type=str, help='Product ID')
         parser.add_argument('price', type=Decimal, help='Product price')
         parser.add_argument('quantity', type=int, help='Product quantity')
+        parser.add_argument('added_date', type=str, help='Added date (YYYY-MM-DD)')
 
     def handle(self, *args, **kwargs):
         pk = kwargs.get('pk')
@@ -19,10 +22,12 @@ class Command(BaseCommand):
         description = kwargs.get('description')
         price = kwargs.get('price')
         quantity = kwargs.get('quantity')
+        added_date = kwargs.get('added_date')
         product = Product.objects.filter(pk=pk).first()
         product.name = name
         product.description = description
         product.price = price
         product.quantity = quantity
+        product.added_date = added_date
         product.save()
         self.stdout.write(self.style.SUCCESS(f'Successfully updated product: {product}'))
