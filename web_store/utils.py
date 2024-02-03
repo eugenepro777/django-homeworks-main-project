@@ -6,7 +6,8 @@ from orders.models import Order
 fake = Faker()
 
 """
-Исключительно для генерации тестовых данных, локаль выбирается передачей в Faker() строки. По умолчанию: 'en-EN'
+Исключительно для генерации тестовых данных, локаль выбирается передачей в Faker() строки. По умолчанию: 'en-EN',
+для кириллицы передать 'ru-RU'
 Запуск через python manage.py shell
 В shell делаем импорт: from utils import create_fake_customers, create_fake_products, create_fake_orders
 потом вызов функции с передачей нужного количества клиентов, товаров и заказов:
