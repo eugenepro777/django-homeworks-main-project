@@ -1,8 +1,9 @@
 from decimal import Decimal
 from django.core.management.base import BaseCommand
-from products.models import Product
 from django.utils.crypto import get_random_string
 from django.utils import timezone
+from django.utils import lorem_ipsum
+from products.models import Product
 
 
 class Command(BaseCommand):
@@ -11,10 +12,11 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         name = get_random_string(length=10,
                                  allowed_chars='abcdefghijklmnopqrstuvwxyz').capitalize()
-        description = get_random_string(15)
+        description = lorem_ipsum.words(15, common=False).capitalize()
         price = Decimal(get_random_string(length=2, allowed_chars='0123456789')).quantize(Decimal('.01'))
         quantity = int(get_random_string(length=3, allowed_chars='123456789'))
         added_date = timezone.now().date()
+        print(added_date)
         product = Product(
             name=name,
             description=description,
