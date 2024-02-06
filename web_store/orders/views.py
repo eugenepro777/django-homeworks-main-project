@@ -14,7 +14,8 @@ def fetch_customer_orders(request, customer_id):
     return render(request, 'orders/orders.html', context)
 
 
-def fetch_ordered_products_by_time(request):
+# сортировка товаров из заказов - за неделю, месяц, год
+def fetch_ordered_products_by_period(request):
     today = timezone.now().date()
     week_ago = today - timedelta(days=7)
     month_ago = today - timedelta(days=30)
