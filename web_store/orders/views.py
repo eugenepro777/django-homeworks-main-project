@@ -14,11 +14,6 @@ def fetch_customer_orders(request, customer_id):
     return render(request, 'orders/orders.html', context)
 
 
-# def customer_orders(request, customer_id):
-#     orders = Order.objects.filter(customer_id=customer_id).prefetch_related('products')
-#     return render(request, 'orders/orders.html', {'customer_orders': customer_orders})
-
-
 def fetch_ordered_products_by_time(request):
     today = timezone.now().date()
     week_ago = today - timedelta(days=7)
@@ -36,4 +31,3 @@ def fetch_ordered_products_by_time(request):
     }
 
     return render(request, 'ordered_products_sort.html', context)
-
