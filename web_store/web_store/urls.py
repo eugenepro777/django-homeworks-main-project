@@ -17,11 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from products.views import index
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index),
+    path('', include('main.urls', namespace='main')),
     path('customers/', include('customers.urls', namespace='customers')),
     path('products/', include('products.urls', namespace='products')),
     path('orders/', include('orders.urls', namespace='orders')),
