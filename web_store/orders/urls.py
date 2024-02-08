@@ -1,6 +1,6 @@
 from django.urls import path
 
-from orders.views import fetch_customer_orders, fetch_ordered_products_by_period, fetch_ordered_products_by_days
+from .views import fetch_customer_orders, fetch_ordered_products_by_period, fetch_ordered_products_by_days
 
 urlpatterns = [
     path('customer-orders/<int:customer_id>', fetch_customer_orders, name='customer_orders'),
