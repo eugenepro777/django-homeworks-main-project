@@ -7,7 +7,7 @@ class ProductForm(forms.Form):
     description = forms.CharField(widget=forms.Textarea)
     price = forms.DecimalField(min_value=0, max_digits=10, decimal_places=2)
     quantity = forms.IntegerField(min_value=1)
-    photo = forms.IntegerField()
+    image = forms.IntegerField()
 
     def save(self):
         cleaned_data = self.cleaned_data
@@ -16,6 +16,6 @@ class ProductForm(forms.Form):
             description=cleaned_data['description'],
             price=cleaned_data['price'],
             quantity=cleaned_data['quantity'],
-            photo=cleaned_data['photo']
+            image=cleaned_data['image']
         )
         return product
