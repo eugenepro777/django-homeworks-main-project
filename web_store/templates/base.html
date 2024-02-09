@@ -14,7 +14,10 @@
     {% endblock %}
 
     <footer>
-         <p> Copyright &copy; Web Store 2024</p>
+        <br>
+        {% load i18n %}
+        {% now "Y" as current_year %}
+        {% blocktranslate %}<p>Copyright &copy; Web Store {{ current_year }} </p>{% endblocktranslate %}
     </footer>
 
 </body>
