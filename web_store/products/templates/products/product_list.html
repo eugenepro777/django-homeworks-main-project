@@ -4,14 +4,13 @@
 
 {% block content %}
     {% if product %}
-    <h1>Товар {{ product.name }}</h1>
-        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    <h1>{{ product.name }}</h1>
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" width="320" height="320">
         <ul>
             <li>Описание: {{ product.description }}</li>
             <li>Цена: {{ product.price }} у.е.</li>
             <li>Количество: {{ product.quantity }} у.е.</li>
         </ul>
-        {{ product }}
     {% else %}
     <h1>Список товаров</h1>
     <ul>
