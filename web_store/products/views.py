@@ -6,13 +6,26 @@ from .models import Product
 
 def add_product(request):
     if request.method == 'POST':
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            name = form.cleaned_data['name']
+            description = form.cleaned_data['description']
+            price = form.cleaned_data['price']
+            quantity = form.cleaned_data['quantity']
+            image = form.cleaned_data['image']
+            product = Product(
+                name=name,
+                description=description,
+                price=price,
+                quantity=quantity,
+                image=image
+            )
+            product.save()
             return redirect('product_list')
     else:
         form = ProductForm()
-    return render(request, 'products/add_product.html', {'form': form})
+        message = 'Заполните форму!'
+    return render(request, 'products/add_product.html', {'form': form, 'message': message})
 
 
 def fetch_product_list(request):
