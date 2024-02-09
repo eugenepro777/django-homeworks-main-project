@@ -7,7 +7,7 @@ class ProductForm(forms.Form):
     description = forms.CharField(widget=forms.Textarea)
     price = forms.DecimalField(min_value=0, max_digits=10, decimal_places=2)
     quantity = forms.IntegerField(min_value=1)
-    image = forms.IntegerField()
+    image = forms.ImageField()
 
     def save(self):
         cleaned_data = self.cleaned_data
