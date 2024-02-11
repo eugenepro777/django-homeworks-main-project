@@ -24,6 +24,8 @@ class CustomerAdmin(admin.ModelAdmin):
                 'description': 'Контактная информация клиента',
                 'fields': ['phone_number', 'email'],
             },
+        ),
+        (
             'Адрес',
             {
                 'classes': ['collapse'],
