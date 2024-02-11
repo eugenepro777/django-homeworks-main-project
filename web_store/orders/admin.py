@@ -11,7 +11,8 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ['order_date', 'customer']
     readonly_fields = ['order_date', 'total_amount']
     search_fields = ['id', 'total_amount']
-    search_help_text = 'Поиск товара по номеру и сумме'
+    search_help_text = 'Поиск заказа по номеру и сумме'
+    actions = ['export_to_csv']
     fieldsets = [
         ('Основная информация', {
             'fields': ['customer', 'total_amount', 'order_date']
@@ -22,6 +23,7 @@ class OrderAdmin(admin.ModelAdmin):
     ]
     filter_horizontal = ('products',)
 
+    # здесь встраиваем действие 'Экспорт в CSV' внутрь класса, как его метод, modeladmin не нужен
     @admin.action(description='Экспорт в CSV')
     def export_to_csv(self, request, queryset):
         response = HttpResponse(content_type='text/csv')
@@ -31,3 +33,4 @@ class OrderAdmin(admin.ModelAdmin):
 
         for order in queryset:
             writer.writerow([order.id, order.customer.name, order.total_amount, order.order_date])
+        return response
