@@ -10,7 +10,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='images/', default='Add image', blank=True, verbose_name='Изображение')
 
     def __str__(self):
-        return f'Product: {self.name}, price: {self.price}'
+        return self.name
 
     class Meta:
         verbose_name = 'Товар'

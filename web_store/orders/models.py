@@ -10,7 +10,7 @@ class Order(models.Model):
     order_date = models.DateField(auto_now_add=True, verbose_name='Дата заказа')
 
     def __str__(self):
-        return f'Order: {self.id} - {self.customer.name}'
+        return f'№{self.id}, клиент:{self.customer.name}'
 
     class Meta:
         verbose_name = 'Заказ'

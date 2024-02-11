@@ -9,7 +9,7 @@ class Customer(models.Model):
     registration_date = models.DateField(auto_now_add=True, verbose_name='Дата регистрации')
 
     def __str__(self):
-        return f'Customer: {self.name}, email: {self.email}'
+        return self.name
 
     class Meta:
         verbose_name = 'Клиент'
