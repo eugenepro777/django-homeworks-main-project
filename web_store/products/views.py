@@ -35,7 +35,7 @@ def fetch_product_list(request):
 
 def fetch_product(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
-    return render(request, 'products/product_list.html', {'product': product})
+    return render(request, 'products/product_detail.html', {'product': product})
 
 
 def edit_product(request, product_id):
