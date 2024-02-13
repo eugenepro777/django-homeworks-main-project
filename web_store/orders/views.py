@@ -58,7 +58,7 @@ def fetch_ordered_products_by_period(request, customer_id):
         'products_year': products_year,
     }
 
-    return render(request, 'ordered_products_sort.html', context)
+    return render(request, 'orders/ordered_products_sort.html', context)
 
 
 # более универсальная функция, задаём количество дней произвольно
@@ -78,31 +78,31 @@ def fetch_ordered_products_by_days(request, customer_id, num_days):
         'products': products,
         'num_days': num_days,
     }
-    return render(request, 'ordered_products_sort.html', context)
+    return render(request, 'orders/ordered_products_sort.html', context)
 
 
+# TODO Дописать реализацию
 def create_order(request):
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
             order = form.save(commit=False)
-            # form.save()
-            total_amount = sum(product.price for product in order.products.all())
-            order.total_amount = total_amount
             order.save()
-            return redirect('orders', order_id=order.id)
+            form.save_m2m()
+            return redirect('add_customer_products', order_id=order.id)
     else:
         form = OrderForm()
-    return render(request, 'orders/order_form.html', {'form': form})
+    return render(request, 'orders/create_order.html', {'form': form})
 
 
-def update_order(request, order_id):
+def add_customer_products(request, order_id):
     order = get_object_or_404(Order, pk=order_id)
     if request.method == 'POST':
         form = OrderForm(request.POST, instance=order)
         if form.is_valid():
+            form.save_m2m()
             form.save()
-        return redirect('orders', order_id=order_id)
+            return redirect('order_detail', order_id=order.id)
     else:
         form = OrderForm(instance=order)
-    return render(request, 'orders/order_form.html', {'form': form, 'order': order})
+    return render(request, 'orders/add_customer_products.html', {'form': form, 'order': order})
