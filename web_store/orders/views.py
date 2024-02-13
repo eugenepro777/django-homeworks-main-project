@@ -7,13 +7,13 @@ from .models import Customer, Order
 
 
 def fetch_order_list(request):
-    products = Order.objects.all()
-    return render(request, 'orders/order_list.html', {'products': products})
+    orders = Order.objects.all()
+    return render(request, 'orders/order_list.html', {'orders': orders})
 
 
 def fetch_order(request, order_id):
-    product = get_object_or_404(Order, pk=order_id)
-    return render(request, 'orders/order_list.html', {'product': product})
+    order = get_object_or_404(Order, pk=order_id)
+    return render(request, 'orders/order_detail.html', {'order': order})
 
 
 def fetch_customer_orders(request, customer_id):
