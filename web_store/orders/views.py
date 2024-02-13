@@ -1,7 +1,19 @@
 from datetime import timedelta
 from django.utils import timezone
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
+
+from .forms import OrderForm
 from .models import Customer, Order
+
+
+def fetch_order_list(request):
+    products = Order.objects.all()
+    return render(request, 'orders/order_list.html', {'products': products})
+
+
+def fetch_order(request, order_id):
+    product = get_object_or_404(Order, pk=order_id)
+    return render(request, 'orders/order_list.html', {'product': product})
 
 
 def fetch_customer_orders(request, customer_id):
@@ -67,3 +79,30 @@ def fetch_ordered_products_by_days(request, customer_id, num_days):
         'num_days': num_days,
     }
     return render(request, 'ordered_products_sort.html', context)
+
+
+def create_order(request):
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save(commit=False)
+            # form.save()
+            total_amount = sum(product.price for product in order.products.all())
+            order.total_amount = total_amount
+            order.save()
+            return redirect('orders', order_id=order.id)
+    else:
+        form = OrderForm()
+    return render(request, 'orders/order_form.html', {'form': form})
+
+
+def update_order(request, order_id):
+    order = get_object_or_404(Order, pk=order_id)
+    if request.method == 'POST':
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+        return redirect('orders', order_id=order_id)
+    else:
+        form = OrderForm(instance=order)
+    return render(request, 'orders/order_form.html', {'form': form, 'order': order})
