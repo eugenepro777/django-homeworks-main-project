@@ -10,7 +10,18 @@ class Order(models.Model):
     order_date = models.DateField(auto_now_add=True, verbose_name='Дата заказа')
 
     def __str__(self):
-        return f'№{self.id}, клиент:{self.customer.name}'
+        return f'№ {self.pk}'
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.total_amount = sum(product.price for product in self.products.all())
+            # super().save(*args, **kwargs)  # Сохранение заказа для получения значения id
+        # self.total_amount = sum(product.price for product in self.products.all())
+        super().save(*args, **kwargs)
+
+    def update_total_amount(self):
+        self.total_amount = self.products.aggregate(total=models.Sum('price'))['total']
+        self.save()
 
     class Meta:
         verbose_name = 'Заказ'
