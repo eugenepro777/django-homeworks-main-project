@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import fetch_customer_orders, fetch_ordered_products_by_period, fetch_ordered_products_by_days
-from .views import fetch_order_list, fetch_order, create_order, update_order
+from .views import fetch_order_list, fetch_order, create_order, add_customer_products
 
 urlpatterns = [
     path('customer-orders/<int:customer_id>', fetch_customer_orders, name='customer_orders'),
@@ -12,5 +12,5 @@ urlpatterns = [
     path('list/', fetch_order_list, name='order_list'),
     path('<int:order_id>/', fetch_order, name='order_view'),
     path('create/', create_order, name='create_order'),
-    path('update/<int:order_id>', update_order, name='update_order'),
+    path('<int:order_id>/add/', add_customer_products, name='add_customer_products'),
 ]
