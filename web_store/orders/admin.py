@@ -1,6 +1,7 @@
 import csv
 from django.contrib import admin
 from django.http import HttpResponse
+from django.db import models
 
 from .models import Order
 
@@ -8,10 +9,10 @@ from .models import Order
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'customer', 'total_amount', 'order_date']
-    list_filter = ['order_date', 'customer']
-    readonly_fields = ['order_date', 'total_amount']
-    search_fields = ['id', 'total_amount']
+    list_filter = ['customer', 'order_date']
+    search_fields = ['customer__name']
     search_help_text = 'Поиск заказа по номеру и сумме'
+    readonly_fields = ['order_date', 'total_amount']
     actions = ['export_to_csv']
     fieldsets = [
         ('Основная информация', {
@@ -22,6 +23,13 @@ class OrderAdmin(admin.ModelAdmin):
         })
     ]
     filter_horizontal = ('products',)
+
+    def save_model(self, request, obj, form, change):
+        if not obj.total_amount:
+            obj.total_amount = obj.products.aggregate(total=models.Sum('price'))['total']
+        super().save_model(request, obj, form, change)
+        obj.save()
+        obj.products.set(form.cleaned_data['products'])
 
     # здесь встраиваем действие 'Экспорт в CSV' внутрь класса, как его метод, modeladmin не нужен
     @admin.action(description='Экспорт в CSV')
