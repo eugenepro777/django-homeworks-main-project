@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from .models import Product
 
@@ -14,7 +15,7 @@ class ProductAdmin(admin.ModelAdmin):
     """Для списка товаров"""
     list_display = ['name', 'price', 'quantity']
     list_filter = ['added_date', 'price']
-    readonly_fields = ['added_date']
+    readonly_fields = ['added_date', 'preview']
     search_fields = ['description']
     search_help_text = 'Поиск товара по описанию'
     actions = [reset_quantity]
@@ -43,10 +44,16 @@ class ProductAdmin(admin.ModelAdmin):
             }
         ),
         (
-            'Изображение товара',
+            'Загрузка изображения',
             {
-                'description': 'Изображение товара',
+                'description': 'Добавьте изображение товара',
                 'fields': ['image'],
+            }
+        ),
+        (
+            'Просмотр установленного изображения',
+            {
+                'fields': ['preview'],
             }
         ),
         (
@@ -57,3 +64,6 @@ class ProductAdmin(admin.ModelAdmin):
             }
         ),
     ]
+
+    def preview(self, obj):
+        return mark_safe(f'<img src="{obj.image.url}" style="width: 200px; height: auto;" alt="Изображения нет">')
