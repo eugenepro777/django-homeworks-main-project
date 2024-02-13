@@ -6,7 +6,10 @@
     <h1>Список заказов</h1>
     <ul>
         {% for order in orders %}
-        <li>{{ order }}</li>
+        <li><a href="{% url 'order_view' order.id %}">Заказ №{{ order.id }}, </a>
+            <a href="{% url 'customer_orders' order.customer.id %}">клиент: {{ order.customer }}</a>
+             - сумма: {{ order.total_amount }} у.е.
+        </li>
         {% empty %}
         <li>Список заказов пуст</li>
         {% endfor %}

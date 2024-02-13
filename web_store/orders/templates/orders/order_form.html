@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
 
-{% block title %}Создание заказа{% endblock %}
+{% block title %}Создание/обновление заказа{% endblock %}
 
 {% block content %}
-    <h1>Создать заказ</h1>
-    <form action="{% url 'create_order' %}" method="post">
+    {% if order %}
+    <h1>Обновить заказ</h1>
+    <form action="{% url 'update_order' order.id %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Создать заказ</button>
+        <button type="submit">Сохранить</button>
     </form>
+    {% else %}
+        <h1>Создать заказ</h1>
+        <form action="{% url 'create_order' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Создать заказ</button>
+        </form>
+    {% endif %}
 {% endblock %}
