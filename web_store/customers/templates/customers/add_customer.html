@@ -5,7 +5,7 @@
 {% block content %}
     <h1>Добавление клиента</h1>
     <h3>{{ message }}</h3>
-    <form action="{% url 'add_client' %}" method="post">
+    <form action="{% url 'add_customer' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Добавить</button>
