@@ -11,7 +11,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'customer', 'total_amount', 'order_date']
     list_filter = ['customer', 'order_date', 'products']
     search_fields = ['customer__name']
-    search_help_text = 'Поиск заказа по номеру и сумме'
+    search_help_text = 'Поиск заказа по клиенту'
     readonly_fields = ['order_date']
     actions = ['export_to_csv']
     fieldsets = [
