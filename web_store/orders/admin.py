@@ -9,10 +9,10 @@ from .models import Order
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'customer', 'total_amount', 'order_date']
-    list_filter = ['customer', 'order_date']
+    list_filter = ['customer', 'order_date', 'products']
     search_fields = ['customer__name']
     search_help_text = 'Поиск заказа по номеру и сумме'
-    readonly_fields = ['order_date', 'total_amount']
+    readonly_fields = ['order_date']
     actions = ['export_to_csv']
     fieldsets = [
         ('Основная информация', {
@@ -28,8 +28,9 @@ class OrderAdmin(admin.ModelAdmin):
         if not obj.total_amount:
             obj.total_amount = obj.products.aggregate(total=models.Sum('price'))['total']
         super().save_model(request, obj, form, change)
-        obj.save()
         obj.products.set(form.cleaned_data['products'])
+        obj.save()
+        # obj.products.set(form.cleaned_data['products'])
 
     # здесь встраиваем действие 'Экспорт в CSV' внутрь класса, как его метод, modeladmin не нужен
     @admin.action(description='Экспорт в CSV')
