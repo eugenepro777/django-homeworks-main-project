@@ -8,7 +8,7 @@ from .models import Order
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'customer', 'total_amount', 'order_date']
+    list_display = ['display_id', 'customer', 'total_amount', 'order_date']
     list_filter = ['customer', 'order_date', 'products']
     search_fields = ['customer__name']
     search_help_text = 'Поиск заказа по клиенту'
@@ -31,6 +31,10 @@ class OrderAdmin(admin.ModelAdmin):
         obj.products.set(form.cleaned_data['products'])
         obj.save()
         # obj.products.set(form.cleaned_data['products'])
+
+    def display_id(self, obj):
+        return f"Заказ №{obj.id}"
+    display_id.short_description = 'Номер заказа'
 
     # здесь встраиваем действие 'Экспорт в CSV' внутрь класса, как его метод, modeladmin не нужен
     @admin.action(description='Экспорт в CSV')
