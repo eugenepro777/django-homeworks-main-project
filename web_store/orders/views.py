@@ -46,7 +46,7 @@ def fetch_ordered_products_by_period(request, customer_id):
         'products_year': products_year,
     }
 
-    return render(request, 'ordered_products_sort.html', context)
+    return render(request, 'orders/ordered_products_sort.html', context)
 
 
 # более универсальная функция, задаём количество дней произвольно
@@ -66,4 +66,4 @@ def fetch_ordered_products_by_days(request, customer_id, num_days):
         'products': products,
         'num_days': num_days,
     }
-    return render(request, 'ordered_products_sort.html', context)
+    return render(request, 'orders/ordered_products_sort.html', context)
