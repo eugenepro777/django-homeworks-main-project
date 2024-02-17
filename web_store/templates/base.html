@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}Store FarFore{% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="shortcut icon" href="{% static 'favicon.png' %}" type="image/png">
+    <link rel="icon" type="image/png" href="{% static 'porcelain.png' %}" >
 </head>
 <body>
 
@@ -28,6 +28,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'customer_list' %}">Клиенты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin:index' %}">Администрирование</a>
                 </li>
             </ul>
         </div>
