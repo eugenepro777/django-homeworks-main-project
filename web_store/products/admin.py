@@ -51,7 +51,7 @@ class ProductAdmin(admin.ModelAdmin):
             }
         ),
         (
-            'Просмотр установленного изображения',
+            'Изображение товара',
             {
                 'fields': ['preview'],
             }
